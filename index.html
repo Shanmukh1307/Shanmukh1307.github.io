@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shanmukh Chinnakotla - Front End Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ef4444;
+            --primary-dark: #dc2626;
+            --dark: #1a1a1a;
+            --darker: #111;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --dark-gray: #334155;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            scroll-behavior: smooth;
+        }
+        
+        .circle-container {
+            width: 325px;
+            height: 325px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .bg-placeholder {
+            background-size: cover;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            border: 5px solid var(--dark-gray);
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+        }
+        
+        .circle-container:hover .bg-placeholder {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(239, 68, 68, 0.4);
+        }
+        
+        .typing {
+            display: inline-block;
+            border-right: 2px solid var(--primary);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blink 0.75s step-end infinite;
+        }
+        
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: var(--dark-gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+        
+        .project-card {
+            background-color: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+        
+        .project-img {
+            background-size: cover;
+            height: 200px;
+            border-radius: 12px 12px 0 0;
+            transition: all 0.5s ease;
+        }
+        
+        .project-card:hover .project-img {
+            transform: scale(1.05);
+        }
+        
+        .section {
+            padding: 6rem 1.5rem;
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            bottom: -10px;
+            left: 0;
+            border-radius: 2px;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(1px);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.2);
+            color: var(--primary) !important;
+        }
+        
+        input, textarea {
+            background: rgba(15, 23, 42, 0.5) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        input:focus, textarea:focus {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .skill-card {
+            transition: all 0.3s ease;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .skill-card:hover {
+            transform: scale(1.05);
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+        
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: -1;
+        }
+        
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(239, 68, 68, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        @media (max-width: 768px) {
+            .section {
+                padding: 4rem 1rem;
+            }
+            
+            .circle-container {
+                width: 250px;
+                height: 250px;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col">
+    <!-- Navigation Bar -->
+    <nav class="flex justify-between items-center px-6 py-4 bg-transparent fixed w-full z-50 backdrop-blur-sm bg-opacity-80 border-b border-gray-800">
+        <div>
+            <a href="#" class="text-2xl font-bold text-red-500 hover:text-red-400 transition-colors">Shanmukh Chinnakotla</a>
+        </div>
+        <div class="space-x-6 hidden md:flex">
+            <a href="#home" class="text-white hover:text-red-500 nav-link">Home</a>
+            <a href="#about" class="text-white hover:text-red-500 nav-link">About</a>
+            <a href="#skills" class="text-white hover:text-red-500 nav-link">Skills</a>
+            <a href="#projects" class="text-white hover:text-red-500 nav-link">Projects</a>
+            <a href="#video-resume" class="text-white hover:text-red-500 nav-link">Video Resume</a>
+            <a href="#contact" class="text-white hover:text-red-500 nav-link">Contact</a>
+        </div>
+        <button class="md:hidden text-white focus:outline-none">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="flex flex-col md:flex-row items-center justify-center w-full min-h-screen relative overflow-hidden">
+        <div class="hero-pattern"></div>
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between py-20 relative z-10">
+            <div class="w-full md:w-1/2 flex justify-center animate__animated animate__fadeInLeft">
+                <div class="relative">
+                    <div class="circle-container floating">
+                        <img src="DSC_0001.jpg" 
+                             alt="Shanmukh Profile Picture" 
+                             class="bg-placeholder object-cover" />
+                    </div>
+                    <div class="absolute -bottom-5 -right-5 bg-gray-800 border-2 border-red-500 rounded-lg px-4 py-2 shadow-lg">
+                        <div class="flex items-center">
+                            <div class="mr-2 text-red-500">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <p class="text-white font-bold">B.Tech</p>
+                                <p class="text-gray-300 text-xs">2026 Graduate</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="w-full md:w-1/2 text-white px-6 animate__animated animate__fadeInRight mt-2 md:mt-0">
+                <div class="inline-block bg-red-500 bg-opacity-20 text-red-500 px-3 py-1 rounded-full text-sm font-medium mb-4">
+                    <i class="fas fa-code mr-1"></i> Aspiring Frontend Developer
+                </div>
+                
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight">
+                    Hey I'm <span class="text-red-500">Shanmukh</span>
+                </h1>
+                <div class="h-16 md:h-20 mt-2">
+                    <span id="typing-text" class="typing text-2xl md:text-4xl font-bold text-red-500"></span>
+                </div>
+                
+                <p class="mt-6 text-gray-300 text-lg max-w-lg">
+                    B.Tech student graduating in 2026, passionate about building responsive and user-friendly web applications. Eager to contribute my skills in real-world projects and grow as a developer.
+                </p>
+                
+                <div class="flex space-x-6 mt-8">
+                    <a href="https://www.linkedin.com/in/shanmukh-chinnakotla" target="_blank" class="text-gray-400 hover:text-red-500 social-icon">
+                        <i class="fab fa-linkedin-in text-2xl"></i>
+                    </a>
+                    <a href="https://github.com/shanmukh56" target="_blank" class="text-gray-400 hover:text-red-500 social-icon">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="https://twitter.com/shanmukh56" target="_blank" class="text-gray-400 hover:text-red-500 social-icon">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="mailto:sshanmukh56@gmail.com" class="text-gray-400 hover:text-red-500 social-icon">
+                        <i class="fas fa-envelope text-2xl"></i>
+                    </a>
+                </div>
+                
+                <div class="mt-8 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#contact" class="btn-primary font-semibold py-3 px-8 rounded-lg animate__animated animate__pulse animate__infinite">
+                        <i class="fas fa-paper-plane mr-2"></i> Contact Me
+                    </a>
+                    <a href="/path/to/resume.pdf" download class="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-semibold py-3 px-8 rounded-lg transition-all text-center">
+                        <i class="fas fa-file-download mr-2"></i> My Resume
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <a href="#about" class="text-gray-400 hover:text-red-500 animate-bounce">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="relative">
+        <div class="bg-pattern"></div>
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4 section-title animate__animated animate__fadeIn">About Me</h2>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-full md:w-1/2 animate__animated animate__fadeInLeft">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Coding" class="rounded-xl shadow-2xl w-full h-auto object-cover">
+                </div>
+                <div class="w-full md:w-1/2 animate__animated animate__fadeInRight">
+                    <p class="text-gray-300 text-lg mb-6">
+                        I'm a B.Tech student graduating in 2026, based in Hyderabad, India, with a strong passion for front-end development. My academic journey and personal projects have equipped me with skills in HTML, CSS, JavaScript, React, and Tailwind CSS.
+                    </p>
+                    <p class="text-gray-300 text-lg mb-6">
+                        As a fresher, I'm eager to apply my knowledge to real-world challenges, focusing on creating responsive, user-centric web applications. I enjoy learning new technologies and collaborating on innovative projects.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-red-500 mr-2"></i>
+                            <span class="text-gray-300">Responsive Design</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-red-500 mr-2"></i>
+                            <span class="text-gray-300">User-Centric Development</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-red-500 mr-2"></i>
+                            <span class="text-gray-300">Modern Frameworks</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-red-500 mr-2"></i>
+                            <span class="text-gray-300">Team Collaboration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="bg-gray-900 bg-opacity-50 relative">
+        <div class="bg-pattern"></div>
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 section-title animate__animated animate__fadeIn">My Skills</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="skill-card animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <div class="flex items-center mb-4">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML Logo" class="w-10 h-10 mr-3" />
+                        <h3 class="text-xl font-semibold">HTML5</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Semantic markup, accessibility standards, and modern HTML features.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 95%;" data-width="95"></div>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-400 mt-2">
+                        <span>Beginner</span>
+                        <span>Expert</span>
+                    </div>
+                </div>
+                
+                <div class="skill-card animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <div class="flex items-center mb-4">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS Logo" class="w-10 h-10 mr-3" />
+                        <h3 class="text-xl font-semibold">CSS3</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Flexbox, Grid, animations, transitions, and responsive design.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%;" data-width="90"></div>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-400 mt-2">
+                        <span>Beginner</span>
+                        <span>Expert</span>
+                    </div>
+                </div>
+                
+                <div class="skill-card animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <div class="flex items-center mb-4">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript Logo" class="w-10 h-10 mr-3" />
+                        <h3 class="text-xl font-semibold">JavaScript</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">ES6+, DOM manipulation, async programming, and modern JS patterns.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%;" data-width="85"></div>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-400 mt-2">
+                        <span>Beginner</span>
+                        <span>Expert</span>
+                    </div>
+                </div>
+                
+                <div class="skill-card animate__animated animate__fadeInUp" data-wow-delay="0.4s">
+                    <div class="flex items-center mb-4">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React Logo" class="w-10 h-10 mr-3" />
+                        <h3 class="text-xl font-semibold">React</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Hooks, Context API, component lifecycle, and state management.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%;" data-width="80"></div>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-400 mt-2">
+                        <span>Beginner</span>
+                        <span>Expert</span>
+                    </div>
+                </div>
+                
+                <div class="skill-card animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+                    <div class="flex items-center mb-4">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/1024px-Tailwind_CSS_Logo.svg.png" alt="Tailwind CSS Logo" class="w-10 h-10 mr-3" />
+                        <h3 class="text-xl font-semibold">Tailwind CSS</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Utility-first CSS framework for rapid UI development.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%;" data-width="85"></div>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-400 mt-2">
+                        <span>Beginner</span>
+                        <span>Expert</span>
+                    </div>
+                </div>
+                
+                <div class="skill-card animate__animated animate__fadeInUp" data-wow-delay="0.6s">
+                    <div class="flex items-center mb-4">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git Logo" class="w-10 h-10 mr-3" />
+                        <h3 class="text-xl font-semibold">Git & GitHub</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Version control, collaboration workflows, and CI/CD integration.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%;" data-width="85"></div>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-400 mt-2">
+                        <span>Beginner</span>
+                        <span>Expert</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="relative">
+        <div class="bg-pattern"></div>
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 section-title animate__animated animate__fadeIn">Featured Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card animate__animated animate__fadeInUp" data-wow-delay="0.1s">
+                    <div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold">E-Commerce Platform</h3>
+                            <span class="text-xs bg-red-500 bg-opacity-20 text-red-500 px-2 py-1 rounded-full">React</span>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-4">
+                            A full-featured e-commerce platform with product catalog, cart functionality, and secure checkout.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">React</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Redux</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Stripe API</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <a href="#" class="text-red-500 hover:text-red-400 text-sm font-medium flex items-center">
+                                Live Demo <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+                            </a>
+                            <a href="https://github.com/shanmukh56/ecommerce-platform" target="_blank" class="text-gray-400 hover:text-white text-sm font-medium flex items-center">
+                                Code <i class="fab fa-github ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                    <div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1769&q=80')"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold">Portfolio Website</h3>
+                            <span class="text-xs bg-blue-500 bg-opacity-20 text-blue-500 px-2 py-1 rounded-full">React</span>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-4">
+                            A modern portfolio website with smooth animations and project showcase.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">React</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Tailwind CSS</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <a href="#" class="text-red-500 hover:text-red-400 text-sm font-medium flex items-center">
+                                Live Demo <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+                            </a>
+                            <a href="https://github.com/shanmukh56/portfolio" target="_blank" class="text-gray-400 hover:text-white text-sm font-medium flex items-center">
+                                Code <i class="fab fa-github ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                    <div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1555421689-3f034debb7a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold">Task Management App</h3>
+                            <span class="text-xs bg-purple-500 bg-opacity-20 text-purple-500 px-2 py-1 rounded-full">React</span>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-4">
+                            A productivity app for managing tasks with drag-and-drop functionality.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">React</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Firebase</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <a href="#" class="text-red-500 hover:text-red-400 text-sm font-medium flex items-center">
+                                Live Demo <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+                            </a>
+                            <a href="https://github.com/shanmukh56/task-manager" target="_blank" class="text-gray-400 hover:text-white text-sm font-medium flex items-center">
+                                Code <i class="fab fa-github ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 animate__animated animate__fadeIn">
+                <a href="https://github.com/shanmukh56" target="_blank" class="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-semibold py-3 px-8 rounded-lg transition-all">
+                    View All Projects
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Resume Section -->
+    <section id="video-resume" class="relative">
+        <div class="bg-pattern"></div>
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 section-title animate__animated animate__fadeIn">Video Resume</h2>
+            <div class="flex justify-center">
+                <div class="w-full md:w-3/4 lg:w-1/2">
+                    <div class="relative pb-9/16">
+                        <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-2xl" 
+                                src="https://www.youtube.com/embed/your-video-id" 
+                                title="Shanmukh's Video Resume" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gray-900 bg-opacity-50 relative">
+        <div class="bg-pattern"></div>
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16 section-title animate__animated animate__fadeIn">Get In Touch</h2>
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="w-full lg:w-1/2 animate__animated animate__fadeInLeft">
+                    <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+                    <p class="text-gray-300 mb-8">
+                        I'm excited to connect for project opportunities or discussions about web development. Reach out via email, phone, or social media!
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-red-500 bg-opacity-20 p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope text-red-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Email</h4>
+                                <a href="mailto:sshanmukh56@gmail.com" class="text-gray-400 hover:text-red-500 transition-colors">sshanmukh56@gmail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-red-500 bg-opacity-20 p-3 rounded-full mr-4">
+                                <i class="fas fa-phone-alt text-red-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Phone</h4>
+                                <a href="tel:+917386876688" class="text-gray-400 hover:text-red-500 transition-colors">+91 7386876688</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-red-500 bg-opacity-20 p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt text-red-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Location</h4>
+                                <p class="text-gray-400">Hyderabad, India</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-6 mt-8">
+                        <a href="https://www.linkedin.com/in/shanmukh-chinnakotla" target="_blank" class="text-gray-400 hover:text-red-500 social-icon">
+                            <i class="fab fa-linkedin-in text-2xl"></i>
+                        </a>
+                        <a href="https://github.com/shanmukh56" target="_blank" class="text-gray-400 hover:text-red-500 social-icon">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                        <a href="https://twitter.com/shanmukh56" target="_blank" class="text-gray-400 hover:text-red-500 social-icon">
+                            <i class="fab fa-twitter text-2xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/shanmukh56" target="_blank" class="text-gray-400 hover:text-red-500 social-icon">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="w-full lg:w-1/2 animate__animated animate__fadeInRight">
+                    <div id="success-message" class="hidden text-green-500 text-center mb-4">
+                        Message sent successfully! Thank you for contacting.
+                    </div>
+                    <form id="contact-form" action="https://formspree.io/f/xyzwekaz" method="POST" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Your Name</label>
+                                <input type="text" id="name" name="name" placeholder="John Doe" class="w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Your Email</label>
+                                <input type="email" id="email" name="email" placeholder="john@example.com" class="w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="Subject" class="w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Your message here..." class="w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary font-semibold py-3 px-8 rounded-lg w-full">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full py-8 bg-gray-900 text-white text-center relative">
+        <div class="container mx-auto px-6">
+            <a href="#" class="text-2xl font-bold text-red-500 hover:text-red-400 transition-colors">Shanmukh Chinnakotla</a>
+            <div class="flex justify-center space-x-6 my-6">
+                <a href="https://www.linkedin.com/in/shanmukh-chinnakotla" target="_blank" class="text-gray-400 hover:text-red-500 social-icon">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/shanmukh56" target="_blank" class="text-gray-400 hover:text-red-500 social-icon">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://twitter.com/shanmukh56" target="_blank" class="text-gray-400 hover:text-red-500 social-icon">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.instagram.com/shanmukh56" target="_blank" class="text-gray-400 hover:text-red-500 social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            <p class="text-gray-400">© 2025 Shanmukh Chinnakotla. All rights reserved.</p>
+        </div>
+        
+        <a href="#home" class="absolute right-8 bottom-8 bg-red-500 hover:bg-red-600 w-12 h-12 rounded-full flex items-center justify-center transition-all">
+            <i class="fas fa-arrow-up text-white"></i>
+        </a>
+    </footer>
+
+    <script>
+        // Typing animation for hero section
+        const texts = ["Front End Developer", "UI/UX Enthusiast", "React Specialist", "Web Designer"];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingText = document.getElementById("typing-text");
+        
+        function type() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                setTimeout(type, 1500);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(type, 500);
+            } else {
+                const speed = isDeleting ? 50 : 100;
+                setTimeout(type, speed);
+            }
+        }
+        
+        // Start typing animation and other initializations
+        window.onload = function() {
+            setTimeout(type, 1000);
+            
+            // Animate skill bars on scroll
+            const skillBars = document.querySelectorAll('.progress-fill');
+            
+            const animateSkillBars = () => {
+                skillBars.forEach(bar => {
+                    const width = bar.getAttribute('data-width');
+                    bar.style.width = width + '%';
+                });
+            };
+            
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                        if (entry.target.classList.contains('progress-fill')) {
+                            animateSkillBars();
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.skill-card, .project-card, .section-title').forEach(element => {
+                observer.observe(element);
+            });
+        };
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Formspree form submission
+        const form = document.getElementById('contact-form');
+        const successMessage = document.getElementById('success-message');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const button = form.querySelector('button');
+            button.disabled = true;
+            button.textContent = 'Sending...';
+            
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    successMessage.classList.remove('hidden');
+                    form.reset();
+                    button.disabled = false;
+                    button.textContent = 'Send Message';
+                    setTimeout(() => {
+                        successMessage.classList.add('hidden');
+                    }, 5000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to send message. Please try again later.');
+                button.disabled = false;
+                button.textContent = 'Send Message';
+            });
+        });
+    </script>
+</body>
+</html>
